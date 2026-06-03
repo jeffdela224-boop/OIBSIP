@@ -1,6 +1,5 @@
 import itertools
 import pyperclip
-import itertools
 import string
 from validator import validator
 from generator import generate_password
@@ -22,13 +21,20 @@ def apply_rules():
         if pyperclip.is_available():
             print("Your password has been copied to the clipboard.")
     
-    combinations = itertools.combinations(generated_password.lower(), 3)
-    num_combinations = itertools.combinations(string.digits, 3)
-    letter_combinations = itertools.combinations(string.ascii_lowercase, 3)
+    combinations = list(itertools.combinations(generated_password.lower(), 3))
+    num_combinations = list(itertools.combinations(string.digits, 3))
+    letter_combinations = list(itertools.combinations(string.ascii_lowercase, 3))
+    num_combinations = [int(''.join(comb)) for comb in num_combinations]
+    letter_combinations = [''.join(comb) for comb in letter_combinations]
+    combinations = [''.join(comb) for comb in combinations]
 
     for char in generated_password:
         if iter.repeat(char, 3):
             generated_password = generate_password(password.user_length, password.include_digits, password.include_special_chars, password.include_lowercase, password.include_uppercase)
 
-        elif combinations in num_combinations or combinations in letter_combinations:
+    for combination in combinations:
+        if int(combination) in num_combinations and (num_combinations[1] is ++num_combinations[0]) and (num_combinations[2] is ++num_combinations[1]):
+            generated_password = generate_password(password.user_length, password.include_digits, password.include_special_chars, password.include_lowercase, password.include_uppercase)
+        
+        elif combination in letter_combinations and combination[1] is chr(ord(combination[0]) + 1) and combination[2] is chr(ord(combination[1]) + 1):
             generated_password = generate_password(password.user_length, password.include_digits, password.include_special_chars, password.include_lowercase, password.include_uppercase)
