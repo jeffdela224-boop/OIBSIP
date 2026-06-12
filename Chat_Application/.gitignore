@@ -68,6 +68,7 @@ $RECYCLE.BIN/
 *.cert
 *.crt
 secret_key.txt
+secret.key
 
 # Multimedia uploads
 
